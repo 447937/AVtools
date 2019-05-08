@@ -1,0 +1,28 @@
+#!/bin/bash
+alive=1
+clear
+echo -e ">>> Script for copying Avira LOG file <<<\nFile will be stored in the root direcotry of flash drive."
+while [ $alive -eq 1 ]
+do
+	echo -e "\nMENU\n 1) Copy log file to flash drive \n 2) View log file destination folder \n 3) Exit \n 4) Reboot"
+	echo -n "Your option: "
+	read Option
+	case $Option in
+		1 ) echo -e "\n i - You may be asked for overwriting old file (y/n)" 
+			cp -i /tmp/avira_report* /cdrom/
+			echo -e "\nCopying has been successfully done if no errors appeared or if user didn't abandoned operation.\nName of file begins with avira_logfile"
+			;;
+		2 ) echo -e "In case of need press any key."
+			nautilus '/tmp/'
+        		;;
+		3 ) echo "The end!"
+			alive=0
+	        	;;
+		4 ) echo "Computer will be rebooted!"
+			sudo reboot
+			echo -e "If computer will not reboot immediately, please reboot manually."
+	        	;;
+		* ) echo "Wrong option!"
+			;;
+	esac
+done
